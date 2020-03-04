@@ -1,4 +1,4 @@
-/* #title {
+#title {
     margin: 0px 25px 0px 0px;
     color: white;
 }
@@ -31,12 +31,28 @@
 }
 
 .wordTitles {
-    color: blue;
+    text-align: center;
+}
+
+#mongoTitle {
+    color: black;
+    font-size: 75px;
+}
+
+.nytTitle {
+    color: black;
+    font-size: 75px;
 }
 
 #imageContainer {
-    background-image: url('../images/newpaper.jpg');
+    background-image: url('/images/newspaper.jpg');
     background-repeat: no-repeat;
-    background-position: center;
-    position: relative;
-} */
+    height: 250px;
+    opacity: 0.8
+}
+
+.articleScrapedInDiv {
+    background-color: beige;
+    font-weight: bolder;
+    border: solid 5px black;
+}

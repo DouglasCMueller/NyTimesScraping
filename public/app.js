@@ -1,11 +1,38 @@
-// // Grab the articles as a json
-// $.getJSON("/articles", function(data) {
-//     // For each one
-//     for (var i = 0; i < data.length; i++) {
-//         // Display the apropos information on the page
-//         $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-//     }
-// });
+$("#scrapeNewArticlesButton").on("click", function() {
+    console.log("scrape button clicked")
+
+
+    $.ajax({
+        url: '/scrape',
+        type: 'GET'
+    })
+    window.location.href = '/';
+
+})
+
+
+
+$.getJSON("/nytarticles", function(data) {
+    // For each one
+    for (var i = 0; i < data.length; i++) {
+        // Display the apropos information on the page
+
+        $("#scrapedArticlesContainer").append("<div class = 'articleScrapedInDiv'  data-id='" +
+            data[i]._id +
+            "'>" + data[i].title +
+            "<br />" + data[i].summary +
+            "<br />" + data[i].link +
+            "</div>" + "<br />");
+    }
+});
+
+$(document).on("click", ".articleScrapedInDiv", function(data) {
+    console.log(data)
+    console.log("article clicked")
+    var thisId = $(this).attr("data-id")
+    console.log(thisId)
+    window.location.href = '/';
+})
 
 
 // // Whenever someone clicks a p tag
