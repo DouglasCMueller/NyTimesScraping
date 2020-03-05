@@ -118,10 +118,11 @@ app.post("/nytarticlesnotes/:id", function(req, res) {
         { $set:{"note": req.body.data}
     })
             
-        .then(function(savedArticle) {
+        .then(function(savedArticleWithNote) {
             // If we were able to successfully find an Article with the given id, send it back to the client
-    res.json(savedArticle)
-    req.json(savedArticle)
+    // res.json(savedArticleWithNote)
+    // req.json(savedArticleWithNote)
+    console.log(savedArticleWithNote)
         })
         .catch(function(err) {
             // If an error occurred, send it to the client

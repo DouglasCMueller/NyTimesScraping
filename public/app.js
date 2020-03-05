@@ -82,12 +82,13 @@ $(document).on("click", '.articleNoteButton', function(data) {
 
     $.ajax({
         method: "POST",
-        url: "/nytarticlesnotes/" + thisId,
-     data: "noteAttached"
+        url: "/nytarticlesnotes" + thisId,
+     data: noteFromUser
     }).then(function(articleNoteSaved) {
          
            console.log(articleNoteSaved)
                 console.log("article note saved")
+                $("#noteContent").empty();
             })
             .catch(function(err) {
                 // If an error occurred, send it to the client
