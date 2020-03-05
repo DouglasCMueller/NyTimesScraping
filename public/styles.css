@@ -51,8 +51,54 @@
     opacity: 0.8
 }
 
+.scrapedArticlesContainer {
+    background-color: beige;
+    font-weight: bolder;
+    border: solid 3px black;
+}
+
+.articleScrapedDiv {
+    background-color: beige;
+    font-weight: bolder;
+    border: solid 3px black;
+}
+
 .articleScrapedInDiv {
     background-color: beige;
     font-weight: bolder;
-    border: solid 5px black;
+    border: solid 3px black;
+}
+
+.articleSaveButton {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+}
+
+.articleNoteButton {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+}
+#savedArticlesTitle{
+    color: black;
+    font-size: 75px;
+}
+
+.savedArticlesContainer {
+    background-color: beige;
+    font-weight: bolder;
+    border: solid 3px black;
 }
