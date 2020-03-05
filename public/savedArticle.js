@@ -64,11 +64,11 @@ $( document ).ready(function() {
         $.ajax({
             method: "GET",
             url: "/nytarticlesnotes/" + thisId
-        }).then(function(articleWithNoteAttached) {
+        }).then(function() {
             console.log("article note found")
                     // If we were able to successfully find Articles, send them back to the client
-                 console.log(articleWithNoteAttached)
-                 $("#noteContent").html(savedArticle.note)
+                //  console.log(articleWithNoteAttached)
+                //  $("#noteContent").html(savedArticle.note)
                    
                 })
                 .catch(function(err) {

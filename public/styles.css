@@ -125,7 +125,7 @@ display: inline-block;
 font-size: 16px;
 margin: 10px;
 }
-#modalCloseButton{
+#modalSubmitButton{
     background-color: blue;
     border: none;
     color: white;
