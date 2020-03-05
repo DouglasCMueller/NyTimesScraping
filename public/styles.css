@@ -102,3 +102,46 @@
     font-weight: bolder;
     border: solid 3px black;
 }
+
+.articleDeleteButton{
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+
+}
+.articleSeeNoteButton{
+background-color: blue;
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: right;
+text-decoration: none;
+display: inline-block;
+font-size: 16px;
+margin: 10px;
+}
+#modalCloseButton{
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+
+}
+
+
+#noteContent {
+    width: 465px;
+    height: 200px;
+    margin-left:16px;
+   
+}

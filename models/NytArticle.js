@@ -26,6 +26,7 @@ var NytArticleSchema = new Schema({
         type: String,
         required: false
     },
+   
     saved: {
         type: Boolean,
         default: false

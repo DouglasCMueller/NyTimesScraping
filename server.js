@@ -3,7 +3,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
-
+var bodyParser = require('body-parser')
 // Require all models
 var db = require("./models");
 
@@ -25,7 +25,7 @@ app.use(express.static("public"));
 // // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/nytimesscrape", { useNewUrlParser: true });
 app.get("/", function(req, res) {
-    console.log(req, res)
+    // console.log(req, res)
     $("scrapedArticlesContainer").empty();
 
 });
@@ -36,7 +36,7 @@ app.get("/deletedarticles", function(req, res) {
         db.NytArticle.deleteMany({})
             .then(function(dbNytarticles) {
                 // If we were able to successfully find Articles, send them back to the client
-                res.json(dbNytarticles);
+                // res.json(dbNytarticles);
                 console.log("deleted all articles from database")
             })
             .catch(function(err) {
@@ -62,8 +62,8 @@ app.get("/scrape", function(req, res) {
             result.title = $(this).find("h2").text();
             result.summary = summary;
             result.link = "https://www.nytimes.com" + $(this).find("a").attr("href");
-
-            result.saved = false
+            result.note = "test note";
+            result.saved = false;
 
             db.NytArticle.create(result)
                 .then(function(dbNytArticle) {
@@ -98,11 +98,33 @@ app.get("/nytarticles", function(req, res) {
 
 // Route for grabbing a specific Article by id marking as saved
 app.post("/nytarticles/:id", function(req, res) {
-    console.log(res)
-    console.log(req)
+    // console.log(res)
+    // console.log(req)
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     db.NytArticle.update({ _id: req.params.id },
         { $set:{"saved": true}
+    })
+            
+        .then(function(savedArticle) {
+            // If we were able to successfully find an Article with the given id, send it back to the client
+        //    console.log(savedArticle);
+        })
+        .catch(function(err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
+
+
+
+// Route for grabbing a specific Article by id and adding note
+app.post("/nytarticlesnotes/:id", function(req, res) {
+    console.log(req)
+    console.log(req.url)
+    console.log(req.params.id)
+    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+    db.NytArticle.update({ _id: req.params.id },
+        { $set:{"note": req.body.data}
     })
             
         .then(function(savedArticle) {
@@ -115,10 +137,17 @@ app.post("/nytarticles/:id", function(req, res) {
         });
 });
 
+
+
+
+
+
+
+
 // Route for grabbing a specific Article by id and deleting
 app.get("/nytarticles/:id", function(req, res) {
-    console.log(res)
-    console.log(req)
+    // console.log(res)
+    // console.log(req)
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
     db.NytArticle.deleteOne({ _id: req.params.id 
      
@@ -126,12 +155,14 @@ app.get("/nytarticles/:id", function(req, res) {
             
         .then(function(deletedArticle) {
             // If we were able to successfully find an Article with the given id, send it back to the client
-           console.log(deletedArticle);
+        //    console.log(deletedArticle);
+      
         })
         .catch(function(err) {
             // If an error occurred, send it to the client
             res.json(err);
         });
+       
 });
 
 
