@@ -90,11 +90,18 @@ console.log(data)
 
 })
 $(document).on("click", '.articleNoteButton', function(data) {
-    var thisId = $(this).attr("data-id")
+    let thisId = $(this).attr("data-id")
     console.log(thisId)
-const noteAttached = "test note attached"
+let noteAttached = "test note attached"
 console.log(noteAttached)
     console.log("note button clicked")
+
+    $(document).on("click", '#modalCloseButton', function(data) {
+        var noteFromUser = $("#noteContent").val()
+           console.log(noteFromUser)
+           console.log(thisId)
+           $("#noteContent").empty();
+
     $.ajax({
         method: "POST",
         url: "/nytarticlesnotes/" + thisId,
@@ -108,6 +115,25 @@ console.log(noteAttached)
                 // If an error occurred, send it to the client
                 console.log(err);
             });
+    
+    })
+
+
+
+
+    // $.ajax({
+    //     method: "POST",
+    //     url: "/nytarticlesnotes/" + thisId,
+    //  data: "noteAttached"
+    // }).then(function(articleNoteSaved) {
+         
+    //        console.log(articleNoteSaved)
+    //             console.log("article note saved")
+    //         })
+    //         .catch(function(err) {
+    //             // If an error occurred, send it to the client
+    //             console.log(err);
+    //         });
 })
 
 

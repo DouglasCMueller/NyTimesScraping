@@ -119,7 +119,7 @@ app.post("/nytarticles/:id", function(req, res) {
 
 // Route for grabbing a specific Article by id and adding note
 app.post("/nytarticlesnotes/:id", function(req, res) {
-    console.log(req)
+    console.log(req.body.data)
     console.log(req.url)
     console.log(req.params.id)
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
@@ -138,7 +138,24 @@ app.post("/nytarticlesnotes/:id", function(req, res) {
 });
 
 
-
+// Route for grabbing a specific Article by id and showing note
+app.get("/nytarticlesnotes/:id", function(req, res) {
+ 
+    // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
+    db.NytArticle.findOne({ _id: req.params.id },
+     )
+            
+        .then(function(savedArticle) {
+            // If we were able to successfully find an Article with the given id, send it back to the client
+           console.log(savedArticle);
+           console.log(savedArticle.note)
+      
+        })
+        .catch(function(err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+});
 
 
 

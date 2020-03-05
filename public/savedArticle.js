@@ -61,20 +61,21 @@ $( document ).ready(function() {
     
         console.log("article see button clicked")
     
-        // $.ajax({
-        //     method: "GET",
-        //     url: "/nytarticles/" + thisId
-        // }).then(function(articleDeleted) {
-        //             // If we were able to successfully find Articles, send them back to the client
-        //         //  console.log(articleDeleted)
-        //             console.log("article deleted")
+        $.ajax({
+            method: "GET",
+            url: "/nytarticlesnotes/" + thisId
+        }).then(function(articleWithNoteAttached) {
+            console.log("article note found")
+                    // If we were able to successfully find Articles, send them back to the client
+                 console.log(articleWithNoteAttached)
+                 $("#noteContent").html(savedArticle.note)
                    
-        //         })
-        //         .catch(function(err) {
-        //    // If an error occurred, send it to the client
-        //       console.log(err)
-        //         });
-        //         window.location.href = '/savedArticle.html';
+                })
+                .catch(function(err) {
+           // If an error occurred, send it to the client
+              console.log(err)
+                });
+                // window.location.href = '/savedArticle.html';
     })
 
     // $(document).on("click", ".articleScrapedInDiv", function(data) {
