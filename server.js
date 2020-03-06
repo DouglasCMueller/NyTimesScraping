@@ -7,7 +7,7 @@ var bodyParser = require('body-parser')
 // Require all models
 var db = require("./models");
 
-var PORT = 8080;
+var PORT = process.env.PORT || 8080;
 
 // Initialize Express
 var app = express();
@@ -23,9 +23,10 @@ app.use(express.static("public"));
 
 // // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/nytimesscrape", { useNewUrlParser: true });
+
 app.get("/", function(req, res) {
-    // console.log(req, res)
-    $("scrapedArticlesContainer").empty();
+res.json(path.join(__dirname,"public/index.html"));
+    
 });
 
 // // Delete every document in the NytArticles collection
