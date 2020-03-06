@@ -24,6 +24,7 @@ $("#savedArticlesNav").on("click", function() {
 //scrape nytimes
 $("#scrapeNewArticlesButton").on("click", function() {
     console.log("scrape button clicked")
+
     $.ajax({
         method: "GET",
         url: "/scrape"
