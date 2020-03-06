@@ -13,7 +13,6 @@ var PORT = 8080;
 var app = express();
 
 // Configure middleware
-
 // Use morgan logger for logging requests
 app.use(logger("dev"));
 // Parse request body as JSON
@@ -27,23 +26,20 @@ mongoose.connect("mongodb://localhost/nytimesscrape", { useNewUrlParser: true })
 app.get("/", function(req, res) {
     // console.log(req, res)
     $("scrapedArticlesContainer").empty();
-
 });
 
-// Delete every document in the NytArticles collection
-app.get("/deletedarticles", function(req, res) {
-
-        db.NytArticle.deleteMany({})
-            .then(function(dbNytarticles) {
-                // If we were able to successfully find Articles, send them back to the client
-                // res.json(dbNytarticles);
-                console.log("deleted all articles from database")
-            })
-            .catch(function(err) {
-                // If an error occurred, send it to the client
-                res.json(err);
-            });
-    })
+// // Delete every document in the NytArticles collection
+// app.post("/deletedarticles", function(req, res) {
+//         db.NytArticle.deleteMany({})
+//             .then(function(dbNytarticles) {
+//                 res.json(dbNytarticles);
+//                 console.log("deleted all articles from database")
+//             })
+//             .catch(function(err) {
+//                 // If an error occurred, send it to the client
+//                 res.json(err);
+//             });
+//     })
     /////////cheerio/axios scrape of NY Times
 app.get("/scrape", function(req, res) {
     axios.get("http://www.nytimes.com/").then(function(response) {
@@ -62,7 +58,7 @@ app.get("/scrape", function(req, res) {
             result.title = $(this).find("h2").text();
             result.summary = summary;
             result.link = "https://www.nytimes.com" + $(this).find("a").attr("href");
-            result.note = "test note";
+            result.note = "";
             result.saved = false;
 
             db.NytArticle.create(result)
@@ -90,21 +86,16 @@ app.get("/nytarticles", function(req, res) {
                     res.json(err);
         });
 });
-
-
+//updating article to saved
 app.post("/nytarticles/:id", function(req, res) {
- 
-    db.NytArticle.update({ _id: req.params.id },
+     db.NytArticle.update({ _id: req.params.id },
         { $set:{"saved": true}
     })
-            
-        .then(function(savedArticle) {
-
+                    .then(function(savedArticle) {
 console.log(savedArticle)
         })
         .catch(function(err) {
-  
-            res.json(err);
+              res.json(err);
         });
 });
 
@@ -114,14 +105,10 @@ app.post("/nytarticlesnotes/:id", function(req, res) {
     console.log(req.url)
     console.log(req.params.id)
  
-    db.NytArticle.update({ _id: req.params.id },
+    db.NytArticle.updateOne({ _id: req.params.id },
         { $set:{"note": req.body.data}
     })
-            
-        .then(function(savedArticleWithNote) {
-            // If we were able to successfully find an Article with the given id, send it back to the client
-    // res.json(savedArticleWithNote)
-    // req.json(savedArticleWithNote)
+               .then(function(savedArticleWithNote) {
     console.log(savedArticleWithNote)
         })
         .catch(function(err) {
@@ -135,13 +122,13 @@ app.post("/nytarticlesnotes/:id", function(req, res) {
 app.get("/nytarticlesnotes/:id", function(req, res) {
  
     // Using the id passed in the id parameter, prepare a query that finds the matching one in our db...
-    db.NytArticle.findOne({ _id: req.params.id },
+    db.NytArticle.find({ _id: req.params.id },
      )
             
-        .then(function(savedArticle) {
-            // If we were able to successfully find an Article with the given id, send it back to the client
-           console.log(savedArticle);
-           console.log(savedArticle.note)
+        .then(function(savedArticleNote) {
+            res.json(savedArticleNote);
+        //    console.log(savedArticle);
+        //    console.log(savedArticle.note)
       
         })
         .catch(function(err) {
