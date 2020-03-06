@@ -22,8 +22,10 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/nytimesscrape", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI ||mongoose.connect("mongodb://localhost/nytimesscrape", { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI);
 
+//defining home screeen
 app.get("/", function(req, res) {
 res.json(path.join(__dirname,"public/index.html"));
     
